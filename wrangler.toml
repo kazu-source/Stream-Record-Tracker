@@ -1,0 +1,28 @@
+name = "lol-record"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+
+# KV Namespace binding for caching
+# After creating the KV namespace with `wrangler kv namespace create "CACHE"`,
+# add your namespace ID below
+[[kv_namespaces]]
+binding = "CACHE"
+id = "358c9d4d47864a28bbe51b367a2719c5"
+
+# Cron trigger for automatic LP capture (runs every 2 minutes)
+# This checks if your stream is live and captures starting LP automatically
+[triggers]
+crons = ["*/2 * * * *"]
+
+[vars]
+# Streamer configuration for automatic LP capture
+# Set these to enable automatic LP tracking when your stream goes live
+TWITCH_CHANNEL = "kazunhinged"
+SUMMONER_NAME = "kazuyoshi"
+SUMMONER_TAG = "stink"
+SUMMONER_REGION = "na1"
+
+# Secrets (add via `wrangler secret put <NAME>`):
+# - RIOT_API_KEY: Your Riot Games API key
+# - TWITCH_CLIENT_ID: Your Twitch app client ID (for auto LP capture)
+# - TWITCH_CLIENT_SECRET: Your Twitch app client secret (for auto LP capture)
