@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stream Record Setup Guide</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      color: #e4e4e4;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #00d9ff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 1.1rem;
+    }
+
+    .preview-box {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .preview-box .chat-message {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 1.1rem;
+    }
+
+    .preview-box .bot-name {
+      color: #9147ff;
+      font-weight: bold;
+    }
+
+    .preview-box .message {
+      color: #efeff1;
+    }
+
+    .step {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -15px;
+      left: 25px;
+      background: linear-gradient(135deg, #00d9ff, #00ff88);
+      color: #1a1a2e;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .step h2 {
+      color: #fff;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+    }
+
+    .step p {
+      color: #aaa;
+      margin-bottom: 15px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      color: #888;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input-group input, .input-group select {
+      width: 100%;
+      padding: 12px 16px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+
+    .input-group input:focus, .input-group select:focus {
+      outline: none;
+      border-color: #00d9ff;
+    }
+
+    .input-group input::placeholder {
+      color: #555;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 15px;
+    }
+
+    .code-box {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      position: relative;
+      word-break: break-all;
+      line-height: 1.8;
+    }
+
+    .code-box code {
+      color: #7ee787;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: background 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: #2ea043;
+    }
+
+    .copy-btn.copied {
+      background: #00d9ff;
+    }
+
+    .region-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .region-item {
+      background: #0d1117;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .region-item .code {
+      color: #00d9ff;
+      font-family: monospace;
+    }
+
+    .tip {
+      background: rgba(0, 217, 255, 0.1);
+      border-left: 3px solid #00d9ff;
+      padding: 15px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 15px;
+    }
+
+    .tip-title {
+      color: #00d9ff;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .tip p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .warning {
+      background: rgba(255, 166, 0, 0.1);
+      border-left: 3px solid #ffa600;
+    }
+
+    .warning .tip-title {
+      color: #ffa600;
+    }
+
+    .faq {
+      margin-top: 50px;
+    }
+
+    .faq h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    .faq-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .faq-question:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .faq-question h3 {
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    .faq-arrow {
+      color: #00d9ff;
+      transition: transform 0.2s;
+    }
+
+    .faq-item.open .faq-arrow {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s, padding 0.3s;
+    }
+
+    .faq-item.open .faq-answer {
+      padding: 0 20px 20px;
+      max-height: 200px;
+    }
+
+    .faq-answer p {
+      color: #aaa;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid #30363d;
+      color: #555;
+    }
+
+    footer a {
+      color: #00d9ff;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .input-row {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .region-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>!record Setup Guide</h1>
+      <p class="subtitle">Track your ranked stats live on stream</p>
+    </header>
+
+    <div class="preview-box">
+      <div class="chat-message">
+        <span class="bot-name">Nightbot:</span>
+        <span class="message"> Stream Record: 4W-2L | LP: +45</span>
+      </div>
+    </div>
+
+    <!-- Step 1: Get Your Info -->
+    <div class="step">
+      <div class="step-number">1</div>
+      <h2>Get Your Info Ready</h2>
+      <p>Find your Riot ID - it's the name you see in League (like <strong>YourName#NA1</strong>)</p>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label>Summoner Name</label>
+          <input type="text" id="summoner" placeholder="kazuyoshi" oninput="generateCommand()">
+        </div>
+        <div class="input-group">
+          <label>Tag</label>
+          <input type="text" id="tag" placeholder="stink" oninput="generateCommand()">
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Region</label>
+        <select id="region" onchange="generateCommand()">
+          <option value="na1">North America (NA)</option>
+          <option value="euw1">Europe West (EUW)</option>
+          <option value="eun1">Europe Nordic & East (EUNE)</option>
+          <option value="kr">Korea (KR)</option>
+          <option value="br1">Brazil (BR)</option>
+          <option value="la1">Latin America North (LAN)</option>
+          <option value="la2">Latin America South (LAS)</option>
+          <option value="oc1">Oceania (OCE)</option>
+          <option value="jp1">Japan (JP)</option>
+          <option value="tr1">Turkey (TR)</option>
+          <option value="ru">Russia (RU)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Step 2: Copy Command -->
+    <div class="step">
+      <div class="step-number">2</div>
+      <h2>Copy Your Command</h2>
+      <p>This is your personalized Nightbot command. Click to copy!</p>
+
+      <div class="code-box">
+        <button class="copy-btn" onclick="copyCommand()">Copy</button>
+        <code id="generated-command">!commands add !record $(urlfetch https://lol-record.kazunhinged.workers.dev?summoner=kazuyoshi&tag=stink&region=na1&streamStart=$(twitch $(channel) "{{uptimeAt}}"))</code>
+      </div>
+    </div>
+
+    <!-- Step 3: Add to Nightbot -->
+    <div class="step">
+      <div class="step-number">3</div>
+      <h2>Add to Nightbot</h2>
+      <p>Paste the command in your Twitch chat while live, or add it through the Nightbot dashboard.</p>
+
+      <div class="tip">
+        <div class="tip-title">Pro Tip</div>
+        <p>Set up a timer to run !record automatically when your stream starts. This ensures LP tracking is always accurate!</p>
+      </div>
+    </div>
+
+    <!-- Step 4: Done! -->
+    <div class="step">
+      <div class="step-number">4</div>
+      <h2>You're All Set!</h2>
+      <p>Type <strong>!record</strong> in your chat to see your stream's ranked record. It tracks:</p>
+      <ul style="margin-left: 20px; color: #aaa; margin-top: 10px;">
+        <li>Wins and losses this stream</li>
+        <li>Total LP gained or lost</li>
+        <li>Only ranked Solo/Duo games</li>
+      </ul>
+
+      <div class="tip warning">
+        <div class="tip-title">Note</div>
+        <p>Games take a few minutes to appear after they finish. The Riot API needs time to update!</p>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq">
+      <h2>Common Questions</h2>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Why does it say "No ranked games yet"?</h3>
+          <span class="faq-arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          <p>You haven't finished any ranked Solo/Duo games since the stream started. Flex, normals, and ARAM don't count.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Why does LP show "N/A"?</h3>
+          <span class="faq-arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          <p>LP tracking works best when !record is used before your first game. Set up an auto-trigger when your stream starts!</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>What if my stream crashes?</h3>
+          <span class="faq-arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          <p>No worries! If you restart within 10 minutes, your record continues from where it was.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Can I track Flex queue?</h3>
+          <span class="faq-arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          <p>Not yet - currently only Solo/Duo is tracked. Flex support is planned for a future update.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Does it work for TFT?</h3>
+          <span class="faq-arrow">&#9660;</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes! Add <code>&game=tft</code> to your command URL, or it will auto-detect if you set your Twitch category to TFT.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Built for streamers with love</p>
+      <p style="margin-top: 10px;"><a href="https://github.com/anthropics/claude-code/issues" target="_blank">Report Issues</a></p>
+    </footer>
+  </div>
+
+  <script>
+    function generateCommand() {
+      const summoner = document.getElementById('summoner').value || 'YourName';
+      const tag = document.getElementById('tag').value || 'TAG';
+      const region = document.getElementById('region').value;
+
+      const command = `!commands add !record $(urlfetch https://lol-record.kazunhinged.workers.dev?summoner=${encodeURIComponent(summoner)}&tag=${encodeURIComponent(tag)}&region=${region}&streamStart=$(twitch $(channel) "{{uptimeAt}}"))`;
+
+      document.getElementById('generated-command').textContent = command;
+    }
+
+    function copyCommand() {
+      const command = document.getElementById('generated-command').textContent;
+      navigator.clipboard.writeText(command).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    function toggleFaq(element) {
+      const faqItem = element.parentElement;
+      faqItem.classList.toggle('open');
+    }
+
+    // Initialize with default values
+    generateCommand();
+  </script>
+</body>
+</html>

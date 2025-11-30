@@ -44,7 +44,7 @@ You'll need:
 2. Add this command, replacing the parts in `<brackets>`:
 
 ```
-!commands add !record $(urlfetch https://lol-record.<worker-subdomain>.workers.dev?summoner=<your-name>&tag=<your-tag>&region=<your-region>&streamStart=$(twitch $(channel) "{{uptimeAt}}"))
+!commands add !record $(urlfetch https://lol-record.kazunhinged.workers.dev?summoner=<your-summoner-name>&tag=<your-tag>&region=<your-region>&streamStart=$(twitch $(channel) "{{uptimeAt}}"))
 ```
 
 ### Example
@@ -55,7 +55,7 @@ If your Riot ID is `kazuyoshi#stink` (that's me) and you play on NA:
 !commands add !record $(urlfetch https://lol-record.kazunhinged.workers.dev?summoner=kazuyoshi&tag=stink&region=na1&streamStart=$(twitch $(channel) "{{uptimeAt}}"))
 ```
 
-**Note:** If your name has spaces (like `The Lion#wreck`), just type it normally - Nightbot handles it.
+**Note:** If your name has spaces (like `The Lion#wreck`), just type it normally - Nightbot handles it. Shoutout Nickich I used him to test.
 
 ALSO - You don't need to add your twitch inside $(channel). The bot should handle it automatically.
 
@@ -85,7 +85,7 @@ To ensure LP tracking is always accurate, set up Nightbot to automatically run `
 3. Configure it:
    - **Name:** `Auto Record`
    - **Message:** `!record`
-   - **Interval:** `5` minutes (or any interval)
+   - **Interval:** `30` minutes (max 60 minutes)
    - **Chat Lines:** `0` (runs even without chat activity)
 4. **Important:** Enable "Only when live" if available, or just let it run - the command handles offline gracefully
 
