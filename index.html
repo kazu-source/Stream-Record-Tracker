@@ -44,6 +44,34 @@
       font-size: 1.1rem;
     }
 
+    .notice-box {
+      background: rgba(0, 217, 255, 0.08);
+      border: 1px solid rgba(0, 217, 255, 0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .notice-box .notice-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: #00d9ff;
+      font-weight: bold;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .notice-box .notice-content {
+      color: #ccc;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
     .preview-box {
       background: #0d1117;
       border: 1px solid #30363d;
@@ -341,7 +369,16 @@
   <div class="container">
     <header>
       <h1>!record Setup Guide</h1>
-      <p class="subtitle">Track your ranked stats live on stream</p>
+      <h2>Track ranked stats for Riot Games titles automatically</h2>
+
+      <div class="notice-box">
+        <div class="notice-header">
+          <span>📢</span> Dev Update
+        </div>
+        <div class="notice-content">
+          VALORANT is currently not supported due to API key limitations. Once Riot Games approves a developer key for this application, it should be working!
+        </div>
+      </div>
     </header>
 
     <div class="preview-box">
@@ -427,7 +464,7 @@
     <div class="step">
       <div class="step-number">5</div>
       <h2>Optional: Support Me</h2>
-      <p>This service is ran and hosted completely free. I appreciate any support via tips or simply visiting my stream and socials!</p>
+      <p>This service is currently completely free. I appreciate any support via tips or simply visiting my stream and socials!</p>
       <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 15px; align-items: center; justify-content: center;">
         <a href="https://ko-fi.com/kazunhinged" target="_blank" class="support-btn">☕ Buy Me a Coffee</a>
         <a href="https://www.twitch.tv/kazunhinged" target="_blank" class="support-btn" style="background: linear-gradient(135deg, #9147ff, #772ce8);">
